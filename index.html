@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savanna Biltong Co.</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            display: flex;
+            height: 100vh;
+            background: #fff;
+            overflow: hidden;
+        }
+        .hero-left, .hero-right {
+            flex: 1;
+            position: relative;
+            transition: transform 0.5s ease;
+        }
+        .hero-left {
+            background: url('https://images.unsplash.com/photo-1547471080-7cc2cae68297?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-left img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+        .hero-left:hover {
+            transform: scale(1.03);
+        }
+        .hero-left:hover img {
+            transform: scale(1.1);
+        }
+        .hero-right {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: #f9f1e9;
+        }
+        .hero-text h1 {
+            font-size: 3rem;
+            color: #4a3c31;
+            margin: 0;
+        }
+        .hero-text p {
+            font-size: 1.5rem;
+            color: #7d6b5e;
+        }
+        section {
+            padding: 50px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .products {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .product-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 280px;
+            margin: 20px;
+            padding: 25px;
+            text-align: left;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .product-card h3 {
+            margin: 0 0 10px 0;
+            color: #4a3c31;
+            font-size: 1.5rem;
+        }
+        .product-card .price {
+            display: flex;
+            align-items: baseline;
+            margin: 10px 0;
+            color: #7d6b5e;
+        }
+        .product-card .price .dollar {
+            font-size: 1.2rem;
+        }
+        .product-card .price .amount {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        .product-card .description {
+            font-size: 0.9rem;
+            color: #7d6b5e;
+            margin: 10px 0;
+            flex-grow: 1;
+        }
+        .product-card button {
+            background: #d9a566;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            font-size: 1.1rem;
+            align-self: flex-end;
+        }
+        .product-card button:hover {
+            background: #e8b57a;
+            transform: scale(1.05);
+        }
+        .form-section {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s;
+        }
+        .form-section:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .form-section h2 {
+            text-align: center;
+            color: #4a3c31;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        input, select, button {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus {
+            border-color: #d9a566;
+            outline: none;
+        }
+        button {
+            background: #d9a566;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #e8b57a;
+        }
+        .caption {
+            font-size: 0.9rem;
+            color: #7d6b5e;
+            text-align: center;
+        }
+        .social-proof {
+            background: #fafafa;
+            padding: 30px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            height: 220px;
+        }
+        .social-proof h2 {
+            color: #4a3c31;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .rotating-bar {
+            display: flex;
+            animation: slide 20s infinite linear;
+        }
+        .quote {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            min-width: 350px;
+            padding: 15px;
+            margin: 0 10px;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s;
+        }
+        .quote:hover {
+            transform: scale(1.05);
+        }
+        .initials-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #d9a566;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .quote-text {
+            font-style: italic;
+            color: #7d6b5e;
+            font-size: 0.95rem;
+        }
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-1800px); }
+        }
+        .values {
+            text-align: center;
+            background: #fafafa;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .values h2 {
+            color: #4a3c31;
+        }
+        .values p {
+            color: #7d6b5e;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #e8e8e8;
+            color: #4a3c31;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="hero-left">
+            <img src="biltong.png" alt="Biltong">
+        </div>
+        <div class="hero-right">
+            <div class="hero-text">
+                <h1>Biltong Bites Co.</h1>
+                <p>Locally-Sourced Biltong For LBC Market Day.</p>
+            </div>
+        </div>
+    </header>
+
+    <section class="products">
+        <div class="product-card">
+            <h3>1kg Biltong</h3>
+            <div class="price">
+                <span class="dollar">$</span><span class="amount">50</span>
+            </div>
+            <p class="description">Perfect for sharing or savoring over time—rich, bold, and packed with flavor.</p>
+            <button onclick="orderNow('1kg')">Order Now</button>
+        </div>
+        <div class="product-card">
+            <h3>500g Biltong</h3>
+            <div class="price">
+                <span class="dollar">$</span><span class="amount">25</span>
+            </div>
+            <p class="description">A hearty portion for the avid snacker, with authentic savanna taste.</p>
+            <button onclick="orderNow('500g')">Order Now</button>
+        </div>
+        <div class="product-card">
+            <h3>250g Biltong</h3>
+            <div class="price">
+                <span class="dollar">$</span><span class="amount">13</span>
+            </div>
+            <p class="description">Just the right size for a quick, delicious treat on the go.</p>
+            <button onclick="orderNow('250g')">Order Now</button>
+        </div>
+    </section>
+
+    <section class="form-section" id="order-form">
+        <h2>Book Your Biltong</h2>
+        <form id="biltong-form">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="text" name="school_id" placeholder="School ID" pattern="[0-9]{5}" maxlength="5" required title="Please enter a 5-digit School ID">
+            <select name="quantity" id="quantity-select" required>
+                <option value="" disabled selected>Select Quantity</option>
+                <option value="250g">250g - $13</option>
+                <option value="500g">500g - $25</option>
+                <option value="1kg">1kg - $50</option>
+            </select>
+            <p class="caption">Bring the specified amount of money to our stall on market day - we will serve you there!</p>
+            <button type="submit">Place Order</button>
+        </form>
+    </section>
+
+    <section class="social-proof">
+        <h2>What Our Customers Say</h2>
+        <div class="rotating-bar">
+            <div class="quote">
+                <div class="initials-circle" style="background-color: #d9a566;">JH</div>
+                <p class="quote-text">"It tastes very meaty and fresh. I want more." - Josh H.</p>
+            </div>
+            <div class="quote">
+                <div class="initials-circle" style="background-color: #e8b57a;">EA</div>
+                <p class="quote-text">"Best Biltong I've had!" - Ethan A.</p>
+            </div>
+            <div class="quote">
+                <div class="initials-circle" style="background-color: #a66a2e;">SK</div>
+                <p class="quote-text">"One piece can last you an hour!" - Sasha K.</p>
+            </div>
+            <div class="quote">
+                <div class="initials-circle" style="background-color: #8a5522;">FD</div>
+                <p class="quote-text">"It was very good, nice amounts of vinegar and spice." - Finn D.</p>
+            </div>
+            <div class="quote">
+                <div class="initials-circle" style="background-color: #d9b68b;">MF</div>
+                <p class="quote-text">"You guys should buy this Biltong." - Matthew F.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="values">
+        <h2>Our Commitment</h2>
+        <p><strong>Eco-Friendly:</strong> Sustainable sourcing and packaging.</p>
+        <p><strong>Supporting Local Farmers:</strong> Partnering with regional producers.</p>
+    </section>
+
+    <footer>
+        <p>© 2025 Savanna Biltong Co. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function orderNow(quantity) {
+            const formSection = document.getElementById('order-form');
+            formSection.scrollIntoView({ behavior: 'smooth' });
+            const quantitySelect = document.getElementById('quantity-select');
+            quantitySelect.value = quantity;
+        }
+
+        document.getElementById('biltong-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const formData = new FormData(this);
+            const data = {
+                name: formData.get('name'),
+                school_id: formData.get('school_id'),
+                quantity: formData.get('quantity')
+            };
+
+            // Replace this URL with your Google Apps Script Web App URL
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbwqCwiMeSY__cW9e3QblV3rIh5SvI-Gx9WyKCxOTnG4BY4nYSM2lGhWVRku60zmGmvP/exec';
+
+            fetch(scriptURL, {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Order submitted successfully!');
+                    this.reset(); // Reset the form after successful submission
+                } else {
+                    alert('Error submitting order. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error submitting order. Please try again.');
+            });
+        });
+    </script>
+</body>
+</html>
