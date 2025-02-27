@@ -126,49 +126,21 @@
             background: #e8b57a;
             transform: scale(1.05);
         }
-        .form-section {
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: box-shadow 0.3s;
-        }
-        .form-section:hover {
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-        .form-section h2 {
-            text-align: center;
-            color: #4a3c31;
-        }
-        form {
+        .form-container {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            justify-content: center;
+            padding: 50px 20px;
         }
-        input, select, button {
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            transition: border-color 0.3s;
+        .form-wrapper {
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden; /* Prevents any overflow from showing scrollbars */
         }
-        input:focus, select:focus {
-            border-color: #d9a566;
-            outline: none;
-        }
-        button {
-            background: #d9a566;
-            color: white;
-            border: none;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        button:hover {
-            background: #e8b57a;
-        }
-        .caption {
-            font-size: 0.9rem;
-            color: #7d6b5e;
-            text-align: center;
+        .form-wrapper iframe {
+            width: 100%;
+            height: 848px; /* Keep this height to match your form's content */
+            scrolling: no; /* Disable scrolling */
+            overflow: hidden; /* Hide any overflow content */
         }
         .social-proof {
             background: #fafafa;
@@ -265,7 +237,7 @@
                 <span class="dollar">$</span><span class="amount">50</span>
             </div>
             <p class="description">Perfect for sharing or savoring over time—rich, bold, and packed with flavor.</p>
-            <button onclick="orderNow('1kg')">Order Now</button>
+            <button onclick="scrollToForm()">Order Now</button>
         </div>
         <div class="product-card">
             <h3>500g Biltong</h3>
@@ -273,7 +245,7 @@
                 <span class="dollar">$</span><span class="amount">25</span>
             </div>
             <p class="description">A hearty portion for the avid snacker, with authentic savanna taste.</p>
-            <button onclick="orderNow('500g')">Order Now</button>
+            <button onclick="scrollToForm()">Order Now</button>
         </div>
         <div class="product-card">
             <h3>250g Biltong</h3>
@@ -281,25 +253,18 @@
                 <span class="dollar">$</span><span class="amount">13</span>
             </div>
             <p class="description">Just the right size for a quick, delicious treat on the go.</p>
-            <button onclick="orderNow('250g')">Order Now</button>
+            <button onclick="scrollToForm()">Order Now</button>
         </div>
     </section>
 
-    <section class="form-section" id="order-form">
-        <h2>Book Your Biltong</h2>
-        <form id="biltong-form">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="text" name="school_id" placeholder="School ID" pattern="[0-9]{5}" maxlength="5" required title="Please enter a 5-digit School ID">
-            <select name="quantity" id="quantity-select" required>
-                <option value="" disabled selected>Select Quantity</option>
-                <option value="250g">250g - $13</option>
-                <option value="500g">500g - $25</option>
-                <option value="1kg">1kg - $50</option>
-            </select>
-            <p class="caption">Bring the specified amount of money to our stall on market day - we will serve you there!</p>
-            <button type="submit">Place Order</button>
-        </form>
-    </section>
+    <div class="form-container" id="form-section">
+        <div class="form-wrapper">
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeG8Eu0dECprllUkqtNJS1_OwgC7NpkfqiBIj4AtHjayDEm3Q/viewform?embedded=true" 
+                    frameborder="0" 
+                    marginheight="0" 
+                    marginwidth="0">Loading…</iframe>
+        </div>
+    </div>
 
     <section class="social-proof">
         <h2>What Our Customers Say</h2>
@@ -338,46 +303,10 @@
     </footer>
 
     <script>
-        function orderNow(quantity) {
-            const formSection = document.getElementById('order-form');
+        function scrollToForm() {
+            const formSection = document.getElementById('form-section');
             formSection.scrollIntoView({ behavior: 'smooth' });
-            const quantitySelect = document.getElementById('quantity-select');
-            quantitySelect.value = quantity;
         }
-
-        document.getElementById('biltong-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission
-
-            const formData = new FormData(this);
-            const data = {
-                name: formData.get('name'),
-                school_id: formData.get('school_id'),
-                quantity: formData.get('quantity')
-            };
-
-            // Replace this URL with your Google Apps Script Web App URL
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbwqzTzx-aPDsish153dRjBeg3XHPZD_uCSj-pO713Kw2grZX9eFAQtV-mRdj0-YqRE/exec';
-
-            fetch(scriptURL, {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => {
-                if (response.ok) {
-                    alert('Order submitted successfully!');
-                    this.reset(); // Reset the form after successful submission
-                } else {
-                    alert('Error submitting order. Please try again.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Error submitting order. Please try again.');
-            });
-        });
     </script>
 </body>
 </html>
